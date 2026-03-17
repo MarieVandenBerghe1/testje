@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>De President - Bestellen</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* Specifieke styling voor bestelpagina */
+main {
+    display: flex;
+    padding: 20px;
+}
+#broodjesSectie {
+    flex: 2;
+}
+.broodjes-container {
+    display: flex;
+    flex-wrap: wrap; /*zorgt ervoor dat broodjes onder elkaar komen*/
+    gap: 20px;
+}
+.broodje {
+    width: calc(50% - 10px); /* twee naast elkaar */
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+}
+#winkelmandjeSectie {
+    flex: 1;
+    max-width: 400px;
+    background-color: #fefefe;
+}
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    z-index: 1000;
+    width: 600px;
+    
+    max-height: 80%;
+    overflow-y: auto;
+}
+.popup label { 
+    display: block; margin-top: 10px; 
+}
+.overlay {
+    display: none;
+    position: fixed; top:0; left:0;
+    width:100%; height:100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+}
+
+.popupSaus, .popupGroenten, .popupExtras {
+    width: calc(50% - 10px); /* twee naast elkaar */
+}
+
+.titel {
+    color: black;
+}
+
+</style>
+</head>
+<body>
+
+    <header>
+        <img src="image/foto_President.png" alt="logo van De President" class="logo">
+    </header>
+
+    <div class="topnav">
+        <a href="index.html">Home</a>
+        <a class="active" href="bestellen.html">Bestellen</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+<main>
+    <!-- Broodjes links -->
+    <section id="broodjesSectie">
+        <h2>Koude broodjes</h2>
+        <div class="broodjes-container">
+            <div class="broodje" data-prijs="3.00" data-naam="Broodje Choco">
+                <p><span class="titel">Broodje Choco</span> - €3,00</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="4.60" data-naam="Broodje Kipfilet">
+                <p><span class="titel">Broodje Kipfilet</span> - €4,60</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="4.60" data-naam="Broodje Salami">
+                <p><span class="titel">Broodje Salami</span> - €4,60</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="4.60" data-naam="Broodje Hesp">
+                <p><span class="titel">Broodje Kaas & Tomaat</span> - €4,60</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="5.10" data-naam="Broodje Hawaii">
+                <p><span class="titel">Broodje Hawaii</span> - €5,10</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="5.10" data-naam="Broodje Smos">
+                <p><span class="titel">Broodje Smos</span> - €5,10</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="5.60" data-naam="Broodje Rauwe Ham">
+                <p><span class="titel">Broodje Rauwe Ham</span> - €5,60</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="5.10" data-naam="Broodje Tonijntino">
+                <p><span class="titel">Broodje Tonijntino</span> - €5,10</p>
+                <p>Tonijn + Martinosuas + Augurk + Bol ajuin</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="5.60" data-naam="Broodje Tonijn Speciaal">
+                <p><span class="titel">Broodje Tonijn Speciaal</span> - €5,60</p>
+                <p>Tonijn + Eiersalade + Verse ui + Groenten</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="5.60" data-naam="Broodje Tonijn Nicoise + Olijven">
+                <p><span class="titel">Broodje Tonijn Nicoise + Olijven</span> - €5,60</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="5.10" data-naam="Broodje Krabsalade">
+                <p><span class="titel">Broodje Krabsalade</span> - €5,10</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="6.60" data-naam="Broodje Zalm + Groenten">
+                <p><span class="titel">Broodje Zalm + Groenten</span> - €6,60</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="6.60" data-naam="Broodje Zalm (Verse ui + Peterselie)">
+                <p><span class="titel">Broodje Zalm (Verse ui + Peterselie)</span> - €6,60</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="7.00" data-naam="Broodje Zalm Philadelphia">
+                <p><span class="titel">Broodje Zalm Philadelphia</span> - €7,00</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="7.00" data-naam="Broodje Garnaal">
+                <p><span class="titel">Broodje Garnaal</span> - €7,00</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="7.00" data-naam="Broodje Scampi Diabolique">
+                <p><span class="titel">Broodje Scampi Diabolique</span> - €7,00</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="7.00" data-naam="Broodje Scampi Look">
+                <p><span class="titel">Broodje Scampi Look</span> - €7,00</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="4.60" data-naam="Broodje Préparé">
+                <p><span class="titel">Broodje Préparé</span> - €4,60</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="4.60" data-naam="Broodje Vleessalade">
+                <p><span class="titel">Broodje Vleessalade</span> - €4,60</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="5.00" data-naam="Broodje Martino">
+                <p><span class="titel">Broodje Martino</span> - €5,00</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="5.20" data-naam="Broodje Martino Speciaal">
+                <p><span class="titel">Broodje Martino Speciaal</span> - €5,20</p>
+                <p>Martino + Martinosaus + Ansjovis + Augurken + Bol ajuin</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="4.60" data-naam="Broodje Koude Boulet">
+                <p><span class="titel">Broodje Koude Boulet</span> - €4,60</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="5.30" data-naam="Broodje Kip Curry">
+                <p><span class="titel">Broodje Kip Curry</span> - €5,30</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="5.30" data-naam="Broodje Kip Coctail">
+                <p><span class="titel">Broodje Kip Coctail</span> - €5,30</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="5.30" data-naam="Broodje Kip Andalouse">
+                <p><span class="titel">Broodje Kip Andalouse</span> - €5,30</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="5.30" data-naam="Broodje Kip Honing Mosterd">
+                <p><span class="titel">Broodje Kip Honing Mosterd</span> - €5,30</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="5.30" data-naam="Broodje Kip Tartaar">
+                <p><span class="titel">Broodje Kip Tartaar</span> - €5,30</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="4.60" data-naam="Broodje Just Veggie">
+                <p><span class="titel">Broodje Just Veggie</span> - €4,60</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="4.60" data-naam="Broodje Hummus">
+                <p><span class="titel">Broodje Hummus</span> - €4,60</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="4.60" data-naam="Broodje Eiersalade">
+                <p><span class="titel">Broodje Eiersalade</span> - €4,60</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="5.10" data-naam="Broodje Brie + Groenten">
+                <p><span class="titel">Broodje Brie + Groenten</span> - €5,10</p>
+                <p>Martino + Martinosaus + Ansjovis + Augurken + Bol ajuin</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="5.30" data-naam="Broodje Brie + Noten + Honing + Rucola">
+                <p><span class="titel">Broodje Brie + Noten + Honing + Rucola</span> - €5,30</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="5.10" data-naam="Broodje Geitenkaas + Groenten">
+                <p><span class="titel">Broodje Geitenkaas + Groenten</span> - €5,10</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="5.30" data-naam="Broodje Geitenkaas + Noten + Honing + Rucola">
+                <p><span class="titel">Broodje Geitenkaas + Noten + Honing + Rucola</span> - €5,30</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="4.60" data-naam="Broodje Kaas">
+                <p><span class="titel">Broodje Kaas</span> - €4,60</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="4.60" data-naam="Broodje Philadelphia">
+                <p><span class="titel">Broodje Philadelphia</span> - €4,60</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            
+
+            <div class="broodje" data-prijs="4.60" data-naam="Broodje Mozzarella">
+                <p><span class="titel">Broodje Mozzarella</span> - €4,60</p>
+                <p>Kruiden + Pesto + Verse of Zongedroogde Tomaat + Rucola</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+
+
+            <div class="broodje" data-prijs="6.50" data-naam="Broodje Mozzarella + Rauwe Ham">
+                <p><span class="titel">Broodje Mozzarella + Rauwe Ham</span> - €6,50</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="5.10" data-naam="Broodje Tonijn">
+                <p><span class="titel">Broodje Tonijn</span> - €5,10</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="5.10" data-naam="Broodje Tonijn Perzik">
+                <p><span class="titel">Broodje Tonijn Perzik</span> - €5,10</p>
+                <p>Perzik + Wortel + Cresson</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+
+
+            <h2>Warme broodjes</h2>
+            <div class="broodje" data-prijs="5.50" data-naam="Broodje Maxicano + Groenten">
+                <p><span class="titel">Broodje Mexicano + Groenten</span> - €5,50</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="5.50" data-naam="Broodje Bitterbal + Groenten">
+                <p><span class="titel">Broodje Bitterbal + Groenten</span> - €5,50</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="5.50" data-naam="Broodje Frikandel + Groenten">
+                <p><span class="titel">Broodje Frikandel + Groenten</span> - €5,50</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="6.00" data-naam="Broodje Gebakken Kip + Groenten">
+                <p><span class="titel">Broodje Gebakken Kip + Groenten</span> - €6,50</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="5.50" data-naam="Broodje Omelet + Groenten">
+                <p><span class="titel">Broodje Omelet + Groenten</span> - €5,50</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="6.00" data-naam="Broodje Omelet + Spek + Groenten">
+                <p><span class="titel">Broodje Omelet + Spek + Groenten</span> - €6,00</p>
+                <p>Perzik + Wortel + Cresson</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="5.50" data-naam="Broodje Warme Boulet + Groenten">
+                <p><span class="titel">Broodje Warme Boulet + Groenten</span> - €5,50</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="5.50" data-naam="Broodje Brie Met Spek">
+                <p><span class="titel">Broodje Brie Met Spek</span> - €5,50</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="5.50" data-naam="Broodje Brie Met Appel">
+                <p><span class="titel">Broodje Brie Met Appel</span> - €5,50</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="4.00" data-naam="Hot dog">
+                <p><span class="titel">Hot Dog</span> - €4,00</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="4.50" data-naam="Hot Dog Met Kaas">
+                <p><span class="titel">Hot Dog Met Kaas</span> - €4,50</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            
+
+            <h2>Panini's</h2>
+            <div class="broodje" data-prijs="5.00" data-naam="Panini Smos + Saus naar keuze">
+                <p><span class="titel">Panini Smos + saus naar keuze</span> - €5,00</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="5.50" data-naam="Panini Cheesy Bicky Boulet">
+                <p><span class="titel">Panini Cheesy Bicky Boulet</span> - €5,50</p>
+                <p>Kaas + Boulet + Bickysaus + Gedroogde ajuin</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="6.50" data-naam="Panini Chicken Tomatillo">
+                <p><span class="titel">Panini Chicken Tomatillo</span> - €6,50</p>
+                <p>Kip + Verse of zongedroogde tomaat + Mozzarella + Pesto</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="6.50" data-naam="Panini Silly Salmon">
+                <p><span class="titel">Panini Silly Salmon</span> - €6,50</p>
+                <p>Zalm + Philadelphia + Verse of zongedroogde tomaat</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="5.50" data-naam="Panini Warme Mozzarella">
+                <p><span class="titel">Panini Warme Mozzarella</span> - €5,50</p>
+                <p>Verse of zongedroogde tomaat</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="6.50" data-naam="Panini Warme Mozzarella + Rauwe Ham">
+                <p><span class="titel">Panini Warme Mozzarella + Rauwe Ham</span> - €6,50</p>
+                <p>Verse of zongedroogde tomaat</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="4.50" data-naam="Croque uit het vuistje">
+                <p><span class="titel">Croque uit het vuistje</span> - €4,50</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+
+            <h2>Pasta's</h2>
+            <div class="broodje" data-prijs="10.00" data-naam="Spaghetti Bolognaise">
+                <p><span class="titel">Spaghetti Bolognaise</span> - €10,00</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="10.00" data-naam="Macaroni Ham + Kaas">
+                <p><span class="titel">Macaroni Ham + Kaas</span> - €10,00</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="15.00" data-naam="Scampi Lookroom">
+                <p><span class="titel">Scampi Lookroom</span> - €15,00</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="15.00" data-naam="Scampi Diabolique">
+                <p><span class="titel">Scampi Diabolique</span> - €15,00</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="15.00" data-naam="Scampi Pesto">
+                <p><span class="titel">Scampi Pesto</span> - €15,00</p>
+                <p>Rode of Groene Pesto + Zongedroogde of verse tomaat</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="12.00" data-naam="Kip Currysaus">
+                <p><span class="titel">Kip Currysaus</span> - €12,00</p>
+                <p>Currysaus + Rucola + Kerstomaat</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+
+            <h2>Schotels</h2>
+            <div class="broodje" data-prijs="13.00" data-naam="Vleesschotel">
+                <p><span class="titel ">Vleesschotel</span> - €13,00</p>
+                <p>Pasta of Aardappelen + Verschillende charcutrie + Koude groenten + Sausje</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="15.00" data-naam="Visschotel">
+                <p><pan class="titel">Visschotel</pan> - €15,00</p>
+                <p>Pasta of Aardappelen + Zalm + Krabsalade + Tonijn + Garnalen + Koude groenten + Sausje</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+
+            <h2>Soep</h2>
+            <div class="broodje" data-prijs="2.50" data-naam="Kleine beker soep">
+                <p><span class="titel">Kleine beker soep</span> - €2,50</p>
+                <p>250 ml</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="3.50" data-naam="Grote beker soep">
+                <p><span class="titel">Grote beker soep</span> - €3,50</p>
+                <p>450 ml</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="6.00" data-naam="1l soep">
+                <p><span class="titel">1l soep</span> - €6,00</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+
+
+            <h2>Extra's</h2>
+            <div class="broodje" data-prijs="55.00" data-naam="Afhaal tapas">
+                <p><span class="titel">Afhaal tapas</span> - €55,00</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="3.50" data-naam="Grote beker soep">
+                <p><span class="titel">Grote beker soep</span> - €3,50</p>
+                <p>450 ml</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+            <div class="broodje" data-prijs="6.00" data-naam="1l soep">
+                <p><span class="titel"></span> - €6,00</p>
+                <button onclick="openPopup(this)">Toevoegen</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Winkelmandje rechts -->
+    <section id="winkelmandjeSectie">
+        <h2>Winkelmandje</h2>
+        <ul id="orderList"></ul>
+        <p>Totaal: €<span id="total">0.00</span></p>
+        <label for="customerName">Naam:</label>
+        <input type="text" id="customerName" placeholder="Vul je naam in">
+        <button onclick="placeOrder()">Bestellen</button>
+    </section>
+</main>
+
+<!-- Overlay voor popup -->
+<div class="overlay" id="overlay" onclick="closePopup()"></div>
+
+<!-- Popup voor opties -->
+<div class="popup" id="popup">
+    <h3 id="popupBroodjeNaam"></h3>
+    <label>Broodtype:</label>
+    <select id="popupBroodType">
+        <option value="Wit">Wit</option>
+        <option value="Bruin">Bruin (+€0,50)</option>
+    </select>
+
+    <label>Groenten:</label>
+    <input type="checkbox" class="popupGroenten" value="Sla"> Sla
+    <input type="checkbox" class="popupGroenten" value="Cresson"> Cresson
+    <input type="checkbox" class="popupGroenten" value="Wortel"> Wortel
+    <input type="checkbox" class="popupGroenten" value="Tomaat"> Tomaat
+    <input type="checkbox" class="popupGroenten" value="Komkommer"> Komkommer
+    <input type="checkbox" class="popupGroenten" value="Ei"> Ei
+    <input type="checkbox" class="popupGroenten" value="Augurk"> Augurk (+€0,20)
+    <input type="checkbox" class="popupGroenten" value="Ajuin"> Ajuin (+€0,20)
+    <input type="checkbox" class="popupGroenten" value="Rucola"> Rucola (+€0,20)
+    <input type="checkbox" class="popupGroenten" value="Peterselie"> Peterselie (+€0,20)
+    <input type="checkbox" class="popupGroenten" value="Zongedroogde tomaat"> Zongedroogde Tomaat (+€0,20)
+    <input type="checkbox" class="popupGroenten" value="Perzik"> Perzik (+€0,20)
+
+
+    <label>Saus:</label>
+    <input type="checkbox" class="popupSaus" value="Mayonaise"> Mayonaise
+    <input type="checkbox" class="popupSaus" value="Ketchup"> Ketchup
+    <input type="checkbox" class="popupSaus" value="Coctailsaus"> Coctailsaus
+    <input type="checkbox" class="popupSaus" value="Bickysaus"> Bickysaus
+    <input type="checkbox" class="popupSaus" value="Joppiesaus"> Joppiesaus
+    <input type="checkbox" class="popupSaus" value="Andalouse"> Andalouse
+    <input type="checkbox" class="popupSaus" value="Samouraï"> Samouraï
+    <input type="checkbox" class="popupSaus" value="Mosterd"> Mosterd
+
+
+    <label>Extra's:</label>
+    <input type="checkbox" class="popupExtras" value="Gedroogde uitjes (+€0,60)"> Gedroogde uitjes (+€0,60)
+
+    <label>Opmerking:</label>
+    <input type="text" id="popupOpmerking" placeholder="Eventuele opmerking">
+
+    <button onclick="addPopupToCart()">Toevoegen aan winkelmandje</button>
+</div>
+
+<script>
+let totalPrice = 0;
+let currentBroodje = null;
+
+function openPopup(button) {
+    currentBroodje = button.parentElement;
+    document.getElementById("popupBroodjeNaam").innerText = currentBroodje.dataset.naam;
+    document.getElementById("popupBroodType").value = "Wit";
+    document.getElementById("popupSaus");
+    document.querySelectorAll(".popupGroenten").forEach(c => c.checked=false); //gaat door elk gevonden element een voor een en kijkt of het true of false is
+    document.querySelectorAll(".popupExtras").forEach(c => c.checked=false);
+    document.getElementById("popupOpmerking").value = "";
+    document.getElementById("overlay").style.display = "block";
+    document.getElementById("popup").style.display = "block";
+}
+
+function closePopup() {
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("popup").style.display = "none";
+}
+
+function addPopupToCart() {
+    const naam = currentBroodje.dataset.naam;
+    let prijs = parseFloat(currentBroodje.dataset.prijs);
+
+    const broodType = document.getElementById("popupBroodType").value;
+    const groenten = Array.from(document.querySelectorAll(".popupGroenten:checked")).map(c => c.value);
+    const saus = Array.from(document.querySelectorAll(".popupSaus:checked")).map(c => c.value);
+    const extras = Array.from(document.querySelectorAll(".popupExtras:checked")).map(c => c.value);
+    const opmerking = document.getElementById("popupOpmerking").value;
+
+    if(broodType === "Bruin") prijs += 0.5;
+    if(extras.includes("Gedroogde uitjes (+€0,60)")) prijs += 0.6; //controleert de waarde
+
+    totalPrice += prijs;
+
+    const li = document.createElement("li");
+    //innertext leest de zichtbare tekst
+    li.innerText = `${naam} | ${broodType} | Groenten: ${groenten.join(", ")} | Saus: ${saus} | Extra: ${extras.join(", ")} | Opmerking: ${opmerking} | €${prijs.toFixed(2)}`;
+    document.getElementById("orderList").appendChild(li);
+
+    document.getElementById("total").textContent = totalPrice.toFixed(2);
+    closePopup();
+}
+
+function placeOrder() {
+    const name = document.getElementById("customerName").value.trim();
+    if(!name) { alert("Gelieve je naam in te vullen!"); return; }
+
+    const orderItems = [];
+    document.querySelectorAll("#orderList li").forEach(li => orderItems.push(li.innerText));
+    if(orderItems.length === 0) { alert("Je hebt nog geen broodjes toegevoegd!"); return; }
+
+    const data = {
+        naam: name,
+        broodje: orderItems.join(" || "),
+        broodType: "-",
+        groenten: [],
+        saus: [],
+        extras: [],
+        opmerking: "-",
+        totaal: totalPrice.toFixed(2)
+    };
+
+    fetch("https://script.google.com/macros/s/AKfycbzlpPK4mzBy-KLVLMRgb5v3TlA63E46UZtEe_dVphAP7fA4_9M1hKUgvVKavW5DCBHg/exec", { // <-- Vul hier je Apps Script URL in
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" }
+    })
+    .then(res => res.json())
+    .then(res => { //wacht tot verzoek klaar is
+        alert("Bestelling succesvol geplaatst! De bazin ontvangt een melding.");
+        document.getElementById("orderList").innerHTML = "";
+        document.getElementById("total").textContent = "0.00";
+        document.getElementById("customerName").value = "";
+        totalPrice = 0;
+    })
+    .catch(err => {
+        alert("Er ging iets mis. Probeer opnieuw.");
+        console.error(err);
+    });
+}
+</script>
+
+</body>
+</html>
