@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bestellingen</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+</head>
+
+<body class="page-orders">
+
+    <header>
+        <img src="image/foto_President.png" class="logo">
+    </header>
+
+    <div class="topnav">
+        <a href="aanpassen.html">Admin</a>
+        <a href="orders.html" class="active">Bestellingen</a>
+    </div>
+
+    <main class="orders-page">
+
+        <div class="orders-header">
+            <h1>Open bestellingen</h1>
+        </div>
+
+        <div id="bestelling"></div>
+
+    </main>
+
+    <script>
+        //dit zorgt ervoor dat de bestellingen goed staan en mooi geordend in de bestelling pagina
+        function laadBestellingen() {
+
+            fetch("http://localhost:3000/bestelling")
+                .then(r => r.json())
+                .then(data => {
+
+                    if (!Array.isArray(data)) {
+                        console.error("Geen array terug:", data);
+                        return;
+                    }
+
+                    const container = document.getElementById("bestelling");
+                    container.innerHTML = "";
+
+                    const grouped = {};
+
+                    data.forEach(item => {
+                        if (!grouped[item.bestelling_id]) {
+                            grouped[item.bestelling_id] = [];
+                        }
+                        grouped[item.bestelling_id].push(item);
+                    });
+
+                    Object.keys(grouped).forEach(id => {
+
+                        const items = grouped[id];
+
+
+
+                        let html = items.map(i => {
+
+                            let groenten = "-";
+                            let sauzen = "-";
+                            let opmerking = "-";
+
+                            try {
+                                groenten = i.groenten ? JSON.parse(i.groenten).join(", ") : "-";
+                                sauzen = i.sauzen ? JSON.parse(i.sauzen).join(", ") : "-";
+                                opmerking = i.opmerking || "-";
+                            } catch (e) {
+                                groenten = "-";
+                                sauzen = "-";
+                            }
+                            return `
+                            <div>
+                                <b>${i.broodje}</b> x${i.aantal}<br>
+                                Groenten: ${groenten}<br>
+                                Sauzen: ${sauzen}<br>
+                                ${opmerking !== "-" ? `Opmerking: ${opmerking}` : ""}
+                            </div>
+`;
+                        }).join("");
+
+                        const div = document.createElement("div");
+                        div.className = "card";
+
+                        div.innerHTML = `<strong>Bestelling #${id}</strong><br>
+                        <small>${new Date(items[0].datum + "Z").toLocaleString("nl-BE")}</small><br><br>
+
+                    ${html}
+
+                    <b>Totaal:</b> €${items[0].totale_prijs}<br><br>
+
+                    <button class="klaar-btn" data-id="${id}">
+                        Markeer als klaar
+                    </button>
+                    `;
+
+                        container.appendChild(div);
+                    });
+                });
+        }
+
+        //als je dan op de markeer als klaar knop klikt verdwijnt de bestelling
+        document.addEventListener("click", async (e) => {
+
+            if (e.target.classList.contains("klaar-btn")) {
+
+                const id = e.target.dataset.id;
+
+                const res = await fetch(`http://localhost:3000/bestelling/${id}`, {
+                    method: "DELETE"
+                });
+
+                if (!res.ok) {
+                    console.log("DELETE FAIL");
+                    return;
+                }
+
+                laadBestellingen();
+            }
+        });
+
+        laadBestellingen();
+    </script>
+
+</body>
+
+</html>

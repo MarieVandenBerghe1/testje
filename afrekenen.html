@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="nl-be">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>De President - afrekenen</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="page-checkout">
+
+    <script>
+        const data = JSON.parse(localStorage.getItem("bestelling"));
+
+        if (data) {
+            document.getElementById("naam").innerText = data.naam;
+            document.getElementById("totaal").innerText = data.totaal;
+
+            const lijst = document.getElementById("lijst");
+
+            data.items.forEach(item => {
+                const li = document.createElement("li");
+                li.innerText = item;
+                lijst.appendChild(li);
+            });
+        }
+
+        function afronden() {
+            alert("Betaling geslaagd!");
+
+            localStorage.removeItem("bestelling");
+
+            window.location.href = "index.html";
+        }
+    </script>
+
+</body>
+
+</html>

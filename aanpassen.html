@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="nl-be">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="page-admin">
+
+    <header>
+        <img src="image/foto_President.png" class="logo">
+    </header>
+
+    <div class="topnav">
+        <a href="aanpassen.html" class="active">Admin</a>
+        <a href="orders.html">Bestellingen</a>
+    </div>
+
+    <main>
+
+        <!-- Formulier links -->
+        <div id="formBox">
+
+            <h3>Nieuw broodje</h3>
+
+            <input id="naam" placeholder="Naam">
+            <input id="beschrijving" placeholder="Beschrijving">
+            <input id="prijs" type="text" inputmode="decimal" placeholder="0.00">
+
+            <select id="categorie"></select>
+
+            <button onclick="add()">Toevoegen</button>
+
+        </div>
+
+        <!-- lijst rechts -->
+        <div id="listBox"></div>
+
+    </main>
+
+    <script>
+
+        let broodjes = [];
+        let categorieen = [];
+
+        window.onload = () => {
+            loadCategories();
+            loadBroodjes();
+        };
+
+        //laad de categorieen
+        function loadCategories() {
+            fetch("http://localhost:3000/categorieen")
+                .then(r => r.json())
+                .then(data => {
+                    console.log("CATEGORIEEN:", data);
+                    categorieen = data;
+
+                    const select = document.getElementById("categorie");
+                    select.innerHTML = "";
+
+                    data.forEach(c => {
+                        select.innerHTML += `<option value="${c.id}">${c.naam}</option>`;
+                    });
+                });
+        }
+
+        //laad de broodjes
+        function loadBroodjes() {
+            fetch("http://localhost:3000/broodjes")
+                .then(r => r.json())
+                .then(data => {
+                    console.log("BROODJES:", data);
+                    broodjes = data || [];
+                    render();
+                });
+        }
+
+        //groepeert elk broodje in zijn categorie
+        function render() {
+
+            const box = document.getElementById("listBox");
+            box.innerHTML = "";
+
+            const grouped = {};
+
+            broodjes.forEach(b => {
+                const catId = Number(b.categorieen_id);
+                if (!grouped[catId]) grouped[catId] = [];
+                grouped[catId].push(b);
+            });
+
+            Object.keys(grouped).forEach(catId => {
+
+                const catNaam = getCategorieNaam(catId);
+
+                const title = document.createElement("h2");
+                title.innerText = catNaam;
+                box.appendChild(title);
+
+                const grid = document.createElement("div");
+                grid.className = "grid";
+
+                grouped[catId].forEach(b => {
+
+                    const div = document.createElement("div");
+                    div.className = "card";
+
+                    div.innerHTML = `
+                        <b>${b.naam}</b> - €${Number(b.prijs).toFixed(2)}
+                        <br>
+                        <small>${b.beschrijving || ""}</small>
+
+                        <div class="actions">
+                            <button onclick="toggle(${b.id})">Bewerken</button>
+                            <button onclick="del(${b.id})">Verwijderen</button>
+                        </div>
+
+                        <div class="edit" id="e-${b.id}">
+                            <input id="n-${b.id}" value="${b.naam}">
+                            <input id="p-${b.id}" value="${b.prijs}">
+                            <input id="d-${b.id}" value="${b.beschrijving || ""}">
+
+                            <select id="c-${b.id}">
+                                ${categorieen.map(c => `
+                                    <option value="${c.id}" ${c.id == b.categorieen_id ? "selected" : ""}>
+                                        ${c.naam}
+                                    </option>
+                                `).join("")}
+                            </select>
+
+                            <button onclick="save(${b.id})">Opslaan</button>
+                        </div>
+                    `;
+
+                    grid.appendChild(div);
+                });
+
+                box.appendChild(grid);
+            });
+        }
+
+        //zorgt voor de categorie zijn naam
+        function getCategorieNaam(id) {
+            const cat = categorieen.find(c => Number(c.id) === Number(id));
+            return cat ? cat.naam : "Onbekend";
+        }
+
+        //zorgt ervoor dat het nieuwe brooodje te zien is 
+        function add() {
+
+            const cat = document.getElementById("categorie").value;
+
+            fetch("http://localhost:3000/broodjes", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    naam: document.getElementById("naam").value,
+                    beschrijving: document.getElementById("beschrijving").value,
+                    prijs: parseFloat(document.getElementById("prijs").value),
+                    categorieen_id: Number(cat)
+                })
+            })
+                .then(r => r.json())
+                .then(() => loadBroodjes());
+        }
+
+        //verwijderd een broodje
+        function del(id) {
+            fetch(`http://localhost:3000/broodjes/${id}`, {
+                method: "DELETE"
+            })
+                .then(res => res.json())
+                .then(() => loadBroodjes())
+                .catch(err => console.log("DELETE FAIL:", err));
+        }
+
+        //zorgt ervoor dat we kunnen bewerken
+        function toggle(id) {
+            const el = document.getElementById("e-" + id);
+            el.style.display = el.style.display === "block" ? "none" : "block";
+        }
+
+        //zorgt ervoor dat we de wijzigingen kunnen zien en opslaat
+        function save(id) {
+            fetch(`http://localhost:3000/broodjes/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    naam: document.getElementById(`n-${id}`).value,
+                    beschrijving: document.getElementById(`d-${id}`).value,
+                    prijs: Number(document.getElementById(`p-${id}`).value),
+                    categorieen_id: Number(document.getElementById(`c-${id}`).value)
+                })
+            })
+                .then(res => {
+                    if (!res.ok) throw new Error("Server error");
+                    return res.json();
+                })
+                .then(() => loadBroodjes())
+                .catch(err => console.log("SAVE FAIL:", err));
+        }
+
+    </script>
+
+</body>
+
+</html>
