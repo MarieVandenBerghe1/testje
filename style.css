@@ -1,3 +1,4 @@
+/* Reset en globale stijl*/
 * {
     margin: 0;
     padding: 0;
@@ -9,11 +10,98 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+button {
+    background-color: #A18634;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+
+    padding: 12px 18px;
+    border-radius: 999px;
+    font-size: 15px;
+
+    transition: 0.2s ease;
+}
+
+button:hover {
+    background: #8b6f1a;
+    transform: scale(1.03);
+}
+
+.cat-btn {
+    padding: 6px 10px;
+    font-size: 12px;
+    border-radius: 999px;
+    background-color: #333;
+    color: white;
+    font-weight: normal;
+}
+
+.cat-btn:hover {
+    background-color: #555;
+    transform: none;
+}
+
+#categorieFilters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+#customerName {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+}
+
+.order-btn {
+    padding: 8px 12px;
+    font-size: 13px;
+    border-radius: 999px;
+}
+
+.order-box {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.order-box input,
+.order-box button {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.category-title {
+    grid-column: 1 / -1;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 25px 0 10px;
+}
+
+input,
+textarea,
+select {
+    font-family: inherit;
+}
+
+/* header + nav */
+header {
+    background-color: #B6A161;
+    color: #ffffff;
+    padding: 5px;
+    text-align: center;
+}
+
 .topnav {
     overflow: hidden;
     background-color: #333;
     text-align: center;
-    
 }
 
 .topnav a {
@@ -35,65 +123,18 @@ body {
     color: white;
 }
 
-.Openingsuren {
-    color: white;
-}
-
-nav {
-    color: black;
-}
+/* home / algemeen */
 
 .tekstCentraal {
     text-align: center;
 }
 
-/* ===== HEADER ===== */
-header {
-    background-color: #B6A161;
-    color: #ffffff;
-    padding: 5px 5px;
-    text-align: center;
+/* zorgt dat tekst altijd boven grid blijft */
+.tekstCentraal {
+    width: 100%;
+    display: block;
 }
 
-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-}
-
-header p {
-    color: #cbd5e1;
-}
-
-/* ===== NAVIGATIE ===== */
-.button {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    background-color: ffffff;
-    padding: 15px 0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.button a {
-    color: #3f3a2b;
-    text-decoration: none;
-    font-weight: 500;
-    padding: 8px 12px;
-    border-radius: 6px;
-    transition: all 0.2s ease;
-}
-
-.button a:hover {
-    background-color: #A18634;
-    color: white;
-}
-
-.button a.active {
-    background-color: #A18634;
-    color: white;
-}
-
-/* ===== SECTIES ===== */
 section {
     padding: 60px 20px;
 }
@@ -115,7 +156,6 @@ section p {
     color: #7a725c;
 }
 
-/* ===== GRID / FOTO'S ===== */
 .row {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -124,45 +164,12 @@ section p {
     margin: 40px auto 0;
 }
 
-.column {
-    padding: 0;
-}
-
 .column img {
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
-/* ===== FORMULIEREN ===== */
-form {
-    max-width: 500px;
-    margin: 0 auto;
-}
-
-input,
-textarea,
-button {
-    width: 100%;
-    padding: 12px 14px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    border: 1px solid #cbd5e1;
-    font-size: 1rem;
-}
-
-button {
-    background-color: #A18634;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-}
-
-button:hover {
-    background: #1d4ed8;
-}
-
-/* ===== FOOTER ===== */
+/* footer */
 .footer {
     background-color: #B6A161;
     color: #e5e7eb;
@@ -187,30 +194,466 @@ button:hover {
     color: #cbd5e1;
 }
 
-.footer-bottom {
-    text-align: center;
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px solid #334155;
-    font-size: 13px;
-    color: #94a3b8;
+.Openingsuren {
+    color: white;
 }
 
-@media screen and (max-width: 600px) {
+/* bestellen.html  */
+#bestellen-main {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
 
+#broodjesSectie {
+    flex: 2;
+}
 
-    .col-40,
-    .col-60,
+.broodjes-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.broodje {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 180px;
+}
+
+.broodje-top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.titel,
+.prijs {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.beschrijving {
+    margin-top: 10px;
+    color: #555;
+}
+
+#winkelmandjeSectie {
+    flex: 1;
+    max-width: 400px;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.cart-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.delete-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    font-size: 14px;
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    color: #333;
+}
+
+.delete-btn:hover {
+    color: red;
+}
+
+.cart-details {
+    font-size: 12px;
+    color: #666;
+    margin-top: 3px;
+}
+
+/* pop up */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    width: 800px;
+    max-height: 100vh;
+    overflow-y: auto;
+    border-radius: 10px;
+    z-index: 1000;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.popup-content {
+    display: flex;
+    gap: 30px;
+    margin-top: 15px;
+    margin-bottom: 25px;
+}
+
+.popup-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.popup-column label {
+    display: grid;
+    grid-template-columns: 16px 1fr;
+    align-items: center;
+    gap: 8px;
+    margin: 4px 0;
+    cursor: pointer;
+}
+
+/* admin */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.edit {
+    display: none;
+    margin-top: 10px;
+}
+
+.edit input,
+.edit select {
+    width: 100%;
+    margin: 5px 0;
+    padding: 5px;
+}
+
+/* orders */
+#bestelling {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    padding: 20px;
+}
+
+.klaar-btn {
+    position: relative;
+    z-index: 999;
+}
+
+/* succes / cancel */
+.page-center {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: #f5f5f5;
+}
+
+/* aanpassen layout */
+main {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    align-items: flex-start;
+}
+
+#formBox {
+    flex: 1;
+    max-width: 320px;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+#listBox {
+    flex: 3;
+}
+
+@media (max-width: 900px) {
     main {
-        width: 100%;
-        margin-top: 0;
-    }
-    
-    button {
-        width: 100%;
+        flex-direction: column;
     }
 
-    .col-40 {
-        text-align: left;
+    #formBox {
+        max-width: 100%;
     }
+}
+
+/* admin pagina */
+.page-admin main {
+    display: flex;
+    gap: 25px;
+    padding: 20px;
+    align-items: flex-start;
+}
+
+/* form links */
+#formBox {
+    flex: 1;
+    max-width: 340px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* grotere inputs */
+#formBox input,
+#formBox select {
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+/* grotere button */
+#formBox button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+}
+
+/* rechts lijst */
+#listBox {
+    flex: 3;
+}
+
+/* titels categorieen */
+#listBox h2 {
+    margin: 15px 0;
+    font-size: 20px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+}
+
+/* broodjes grid */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 15px;
+}
+
+/* card styling */
+.card {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+/* action buttons */
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.actions button {
+    flex: 1;
+    padding: 6px;
+    font-size: 13px;
+}
+
+/* edit zone */
+.edit {
+    margin-top: 10px;
+}
+
+.edit input,
+.edit select {
+    width: 100%;
+    padding: 6px;
+    margin: 5px 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* orders page */
+.page-orders .orders-header {
+    width: 100%;
+    text-align: center;
+    margin: 30px 0 10px 0;
+}
+
+/* zorgt dat titel altijd boven lijst blijft */
+.page-orders main {
+    display: block;
+}
+
+/* bestellingen netjes grid */
+#bestelling {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+/* card mooi maken (alleen orders pagina) */
+.page-orders .card {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* knop beter zichtbaar */
+.klaar-btn {
+    margin-top: 10px;
+    padding: 8px;
+    width: 100%;
+    border-radius: 8px;
+    background: #A18634;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.klaar-btn:hover {
+    background: #8b6f1a;
+}
+
+.klaar-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.card div {
+    margin-bottom: 10px;
+}
+
+/* index only */
+.page-index .tekstCentraal {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* alleen index row layout */
+.page-index .row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* alleen index images */
+.page-index .column img {
+    width: 100%;
+    border-radius: 12px;
+    display: block;
+}
+
+/* index fix */
+.page-index main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* tekst boven alles */
+.page-index .tekstCentraal {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+/* foto grid alleen index */
+.page-index .row {
+    width: 100%;
+    max-width: 1100px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* images netjes */
+.page-index .column img {
+    width: 100%;
+    display: block;
+    border-radius: 12px;
+}
+
+/* contact only */
+.page-contact main {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* content gecentreerd */
+.page-contact section {
+    text-align: center;
+    width: 100%;
+    max-width: 800px;
+}
+
+/* teksten spacing */
+.page-contact section p {
+    margin: 8px 0;
+}
+
+/* titel */
+.page-contact h2 {
+    margin-bottom: 15px;
+}
+
+/* map volledige breedte */
+.page-contact iframe {
+    width: 100vw;
+    /* full screen width */
+    max-width: 100%;
+    height: 350px;
+    margin-top: 20px;
+
+    border: 0;
+    display: block;
+
+    /* zodat hij echt “edge-to-edge” voelt */
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
